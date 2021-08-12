@@ -1,0 +1,66 @@
+FROM ubuntu:focal
+
+LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
+
+ARG LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update -qqy && \
+    apt-get install --no-install-recommends -y \
+        apt-utils \
+        apt-transport-https \
+        libxml2-dev && \
+    apt-get upgrade -qqy && \
+    apt-get install --no-install-recommends -y \
+        bash \
+        bc \
+        bison \
+        build-essential \
+        binutils \
+        coreutils \
+        curl \
+        ca-certificates \
+        clang \
+        cmake \
+        default-jre-headless \
+        diffutils \
+        file \
+        flex \
+        gcc \
+        g++ \
+        gawk \
+        git \
+        gnupg \
+        lld \
+        libelf-dev \
+        libssl-dev \
+        lftp \
+        libtool \
+        m4 \
+        make \
+        ninja-build \
+        ssh-client \
+        openssh-client \
+        openssl \
+        rsync \
+        patchelf \
+        pigz \
+        python2 \
+        python3 \
+        software-properties-common \
+        texinfo \
+        u-boot-tools \
+        wget \
+        zlib1g-dev \
+        zip && \
+    apt-get autoremove -qqy && \
+    apt-get autoclean -qqy
+
+RUN rm -rf /var/lib/apt/lists/*
+RUN git config --global user.name "Muhammad Fadlyas"RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+RUN git config --global http.sslVerify false
+CMD ["/bin/bash"]
