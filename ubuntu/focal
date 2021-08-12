@@ -59,7 +59,7 @@ RUN apt-get update -qqy && \
     apt-get autoclean -qqy
 
 RUN rm -rf /var/lib/apt/lists/*
-RUN git config --global user.name "Muhammad Fadlyas"RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.name "Muhammad Fadlyas"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
 
 CMD ["/bin/bash"]
