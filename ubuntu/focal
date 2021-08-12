@@ -1,5 +1,4 @@
 FROM ubuntu:focal
-
 LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
 
 ARG LC_ALL=C.UTF-8
@@ -62,5 +61,5 @@ RUN apt-get update -qqy && \
 RUN rm -rf /var/lib/apt/lists/*
 RUN git config --global user.name "Muhammad Fadlyas"RUN git config --global user.name "Muhammad Fadlyas"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
-RUN git config --global http.sslVerify false
+
 CMD ["/bin/bash"]
