@@ -51,6 +51,7 @@ RUN apt-get update -qqy && \
         python3 \
         software-properties-common \
         texinfo \
+        tar \
         u-boot-tools \
         wget \
         zlib1g-dev \
