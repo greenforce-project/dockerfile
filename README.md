@@ -1,5 +1,5 @@
 TODO:
 ---
 
-- `docker pull mhmmdfdlyas/dockerfile:latest`
+- do `docker pull mhmmdfdlyas/dockerfile:latest` to get the latest Ubuntu (Focal Fossa) build.
 
