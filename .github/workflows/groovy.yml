@@ -6,7 +6,7 @@ on:
     - cron: '* * * * SUN'
 
 jobs:
-  lite:
+  groovy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -16,6 +16,6 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ubuntu/lite
+        dockerfile: ubuntu/groovy
         repository: mhmmdfdlyas/dockerfile
-        tags: lite
+        tags: groovy

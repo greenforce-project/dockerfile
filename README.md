@@ -1,6 +1,6 @@
 TODO:
 ---
 
-- do `docker pull mhmmdfdlyas/dockerfile:latest` to get Ubuntu x Focal Fossa build (full).
-- do `docker pull mhmmdfdlyas/dockerfile:lite` to get Ubuntu x Groovy build (minimal).
+- do `docker pull mhmmdfdlyas/dockerfile:focal` to get **Full** Ubuntu x Focal build.
+- do `docker pull mhmmdfdlyas/dockerfile:groovy` to get **Minimal** Ubuntu x Groovy build.
 
