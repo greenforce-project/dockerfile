@@ -27,7 +27,6 @@ RUN apt-get update -qqy && \
         openssl \
         python \
         ssh \
-        tzdata \
         tar \
         wget \
         zip && \
