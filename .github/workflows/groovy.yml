@@ -3,7 +3,7 @@ name: build-and-publish
 on:
   push:
   schedule:
-    - cron: '* * * * SUN'
+    - cron: '0 22 * * SAT'
 
 jobs:
   groovy:
