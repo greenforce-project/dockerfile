@@ -1,4 +1,4 @@
-name: build-and-publish
+name: clang
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build focal ubuntu
+    - name: Build clang packages
       uses: docker/build-push-action@v1
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
