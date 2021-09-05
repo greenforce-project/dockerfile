@@ -1,0 +1,44 @@
+FROM ubuntu:20.10
+LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
+
+ARG LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update -qqy && \
+    apt-get install --no-install-recommends -y \
+        bc \
+        binutils-dev \
+        bison \
+        build-essential \
+        ca-certificates \
+        ccache \
+        clang \
+        cmake \
+        curl \
+        file \
+        flex \
+        git \
+        libelf-dev \
+        libssl-dev \
+        lld \
+        make \
+        ninja-build \
+        python3-dev \
+        texinfo \
+        u-boot-tools \
+        xz-utils \
+        zlib1g-dev \
+        patchelf \
+        llvm \
+        ssh && \
+    apt-get autoremove -qqy && \
+    apt-get autoclean -qqy
+
+RUN rm -rf /var/lib/apt/lists/*
+RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+
+CMD ["/bin/bash"]
