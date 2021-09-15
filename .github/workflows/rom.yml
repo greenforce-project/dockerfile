@@ -1,0 +1,21 @@
+name: rom
+
+on:
+  push:
+  schedule:
+    - cron: '0 22 * * SAT'
+
+jobs:
+  rom:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build rom packages
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        dockerfile: ubuntu/rom
+        repository: mhmmdfdlyas/dockerfile
+        tags: rom

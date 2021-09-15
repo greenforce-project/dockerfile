@@ -1,0 +1,47 @@
+FROM ubuntu:groovy
+LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
+
+ARG LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=Asia/Jakarta
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENV target_repo="https://github.com/akhilnarang/scripts"
+RUN apt-get update -qqy && \
+    apt-get install --no-install-recommends -y \
+        bc \
+        bison \
+        curl \
+        ca-certificates \
+        flex \
+        gcc \
+        git \
+        glibc-doc \
+        jq \
+        libxml2 \
+        libtinfo5 \
+        libc6-dev \
+        libssl-dev \
+        libstdc++6 \
+        make \
+        openssl \
+        python \
+        pigz \
+        ssh \
+        sshpass \
+        sudo \
+        tar \
+        wget \
+        zip && \
+    apt-get autoremove -qqy && \
+    apt-get autoclean -qqy && \
+    git clone -q $target_repo s && \
+    rm -rf s/.git && \
+    bash s/android_build_env.sh
+
+RUN rm -rf /var/lib/apt/lists/* /root/s
+RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+
+CMD ["/bin/bash"]
