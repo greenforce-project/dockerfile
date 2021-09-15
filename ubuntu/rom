@@ -38,7 +38,7 @@ RUN apt-get update -qqy && \
     apt-get autoclean -qqy && \
     git clone -q $target_repo s && \
     rm -rf s/.git && \
-    bash s/android_build_env.sh
+    bash s/setup/android_build_env.sh
 
 RUN rm -rf /var/lib/apt/lists/* /root/s
 RUN git config --global user.name "Muhammad Fadlyas"
