@@ -14,6 +14,7 @@ RUN apt-get update -qqy && \
         bison \
         curl \
         ca-certificates \
+        ccache \
         flex \
         gcc \
         git \
@@ -44,5 +45,6 @@ RUN apt-get update -qqy && \
 RUN rm -rf /var/lib/apt/lists/* /root/s
 RUN git config --global user.name "Muhammad Fadlyas"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]

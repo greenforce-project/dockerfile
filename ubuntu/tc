@@ -71,5 +71,6 @@ RUN apt-get update -qqy && \
 RUN rm -rf /var/lib/apt/lists/*
 RUN git config --global user.name "Muhammad Fadlyas"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]
