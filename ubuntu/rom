@@ -28,6 +28,7 @@ RUN apt-get update -qqy && \
         openssl \
         python \
         pigz \
+        rclone \
         ssh \
         sshpass \
         sudo \
