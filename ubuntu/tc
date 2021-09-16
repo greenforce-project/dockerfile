@@ -9,6 +9,9 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
+        automake \
+        autoconf \
+        autopoint \
         bc \
         binutils-dev \
         bison \
@@ -18,22 +21,50 @@ RUN apt-get update -qqy && \
         clang \
         cmake \
         curl \
+        expat \
+        libexpat1-dev \
         file \
         flex \
         git \
+        gcc \
+        gcc-10 \
+        g++ \
+        g++-10 \
+        gperf \
+        gawk \
+        gettext \
+        libcap-dev \
+        libtool \
         libelf-dev \
         libssl-dev \
+        libncurses5-dev \
+        libgmp-dev \
+        libmpc-dev \
+        libmpfr-dev \
+        liblzma-dev \
+        libz-dev \
+        lz4 \
+        liblz4-tool \
+        liblz4-dev \
+        lzma \
         lld \
         make \
+        ncurses-dev \
         ninja-build \
+        mercurial \
+        python-all-dev \
         python3-dev \
+        pkg-config \
         texinfo \
+        txt2man \
         u-boot-tools \
         xz-utils \
         zlib1g-dev \
+        patch \
         patchelf \
+        subversion \
         llvm \
-        ssh && \
+        ssh --fix-broken --fix-missing && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy
 
