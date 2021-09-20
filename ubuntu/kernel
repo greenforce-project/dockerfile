@@ -27,6 +27,7 @@ RUN apt-get update -qqy && \
         make \
         openssl \
         python \
+        rclone \
         ssh \
         tar \
         wget \
