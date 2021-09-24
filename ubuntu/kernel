@@ -30,6 +30,7 @@ RUN apt-get update -qqy && \
         rclone \
         ssh \
         tar \
+        tzdata \
         wget \
         zip && \
     apt-get autoremove -qqy && \

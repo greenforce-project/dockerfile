@@ -59,6 +59,7 @@ RUN apt-get update -qqy && \
         rclone \
         texinfo \
         txt2man \
+        tzdata \
         u-boot-tools \
         xz-utils \
         zlib1g-dev \
