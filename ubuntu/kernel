@@ -39,9 +39,6 @@ RUN apt-get update -qqy && \
 RUN rm -rf /var/lib/apt/lists/*
 RUN git config --global user.name "Muhammad Fadlyas"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
-RUN git clone -q --depth=1 https://gitlab.com/fadlyas07/clang-llvm --single-branch /root/clang
-RUN rm -rf /root/clang/.git
-ENV PATH="/root/clang/bin:${PATH}"
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]
