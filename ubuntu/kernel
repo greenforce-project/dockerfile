@@ -4,7 +4,7 @@ LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV TZ=Asia/Jakarta
+ENV TZ=Etc/GMT-7
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update -qqy && \
