@@ -18,6 +18,7 @@ RUN apt-get update -qqy && \
         gcc \
         git \
         glibc-doc \
+        git-lfs \
         jq \
         libxml2 \
         libtinfo5 \

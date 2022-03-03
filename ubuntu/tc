@@ -27,6 +27,7 @@ RUN apt-get update -qqy && \
         file \
         flex \
         git \
+        git-lfs \
         gcc \
         gcc-10 \
         g++ \

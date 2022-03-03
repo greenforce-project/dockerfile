@@ -33,6 +33,7 @@ RUN apt-get update -qqy && \
         gawk \
         g++ g++-multilib \
         git \
+        git-lfs \
         gnupg \
         glibc-doc \
         gperf \
