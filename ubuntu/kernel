@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
+LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -38,7 +38,7 @@ RUN apt-get update -qqy && \
     apt-get autoclean -qqy
 
 RUN rm -rf /var/lib/apt/lists/*
-RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.name "fadlyas07"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
 ENV USE_CCACHE=1
 

@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
+LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -97,7 +97,7 @@ RUN apt-get update -qqy && \
 RUN echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen
 RUN /usr/sbin/locale-gen
 RUN rm -rf /var/lib/apt/lists/* /root/s
-RUN git config --global user.name "Muhammad Fadlyas"
+RUN git config --global user.name "fadlyas07"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
 ENV USE_CCACHE=1
 
