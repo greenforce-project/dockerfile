@@ -3,7 +3,7 @@ name: Toolchain
 on:
   push:
   schedule:
-    - cron: '0 22 * * SAT'
+    - cron: '0 10 * * SAT'
 
 jobs:
   tc:
