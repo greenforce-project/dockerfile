@@ -19,3 +19,10 @@ jobs:
         dockerfile: ubuntu/rom
         repository: mhmmdfdlyas/dockerfile
         tags: r
+
+    - uses: yanzay/notify-telegram@v0.1.0
+      if: always()
+      with:
+        chat: ${{ secrets.TELEGRAM_CHAT_ID }}
+        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        status: ${{ job.status }}
