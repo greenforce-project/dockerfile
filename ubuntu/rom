@@ -1,4 +1,4 @@
-FROM ubuntu:groovy
+FROM ubuntu:latest
 LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
 
 ENV LANG=C.UTF-8

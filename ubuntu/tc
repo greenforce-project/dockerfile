@@ -1,4 +1,4 @@
-FROM ubuntu:20.10
+FROM ubuntu:latest
 LABEL maintainer "Muhammad Fadlyas <mhmmdfdlyas@gmail.com>"
 
 ARG LC_ALL=C.UTF-8
