@@ -62,6 +62,7 @@ RUN apt-get update -qqy && \
         txt2man \
         tzdata \
         u-boot-tools \
+        sudo \
         xz-utils \
         zlib1g-dev \
         patch \
@@ -72,6 +73,10 @@ RUN apt-get update -qqy && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy
 
+RUN ubuntu_codename=$(lsb_release -c | cut -f2) && \
+    wget https://apt.llvm.org/llvm-snapshot.gpg.key && \
+    sudo apt-key add llvm-snapshot.gpg.key && \
+    sudo add-apt-repository "deb http://apt.llvm.org/$ubuntu_codename/ llvm-toolchain-$ubuntu_codename main"
 RUN rm -rf /var/lib/apt/lists/*
 RUN git config --global user.name "fadlyas07"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
