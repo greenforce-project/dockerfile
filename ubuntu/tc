@@ -69,6 +69,7 @@ RUN apt-get update -qqy && \
         patch \
         patchelf \
         subversion \
+        software-properties-common \
         llvm \
         ssh --fix-broken --fix-missing && \
     apt-get autoremove -qqy && \
