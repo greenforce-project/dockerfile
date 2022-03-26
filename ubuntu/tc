@@ -35,6 +35,7 @@ RUN apt-get update -qqy && \
         gperf \
         gawk \
         gettext \
+        gnupg \
         libcap-dev \
         libtool \
         libelf-dev \
