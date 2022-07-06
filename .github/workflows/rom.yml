@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         dockerfile: ubuntu/rom
         repository: mhmmdfdlyas/dockerfile
-        tags: r
+        tags: r-ubuntu
 
     - uses: yanzay/notify-telegram@v0.1.0
       if: always()
