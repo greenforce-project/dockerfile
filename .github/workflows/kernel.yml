@@ -1,4 +1,4 @@
-name: kernel
+name: "kernel (ubuntu)"
 
 on:
   workflow_dispatch:

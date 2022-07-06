@@ -1,4 +1,4 @@
-name: rom
+name: "rom (ubuntu)"
 
 on:
   workflow_dispatch:

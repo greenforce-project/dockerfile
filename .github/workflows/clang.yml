@@ -1,4 +1,4 @@
-name: Toolchain
+name: "Toolchains (ubuntu)"
 
 on:
   workflow_dispatch:
