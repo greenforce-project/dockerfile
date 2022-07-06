@@ -1,6 +1,11 @@
-TODO:
----
+# TODO:
 
-- do `docker pull mhmmdfdlyas/dockerfile:k` to get **Dependencies** for building kernel.
-- do `docker pull mhmmdfdlyas/dockerfile:r` to get **Dependencies** for building rom.
-- do `docker pull mhmmdfdlyas/dockerfile:t` to get **Dependencies** for building toolchains (GCC|clang).
+## Ubuntu
+
+- do `docker pull mhmmdfdlyas/dockerfile:k` to get **Dependencies** for building Android kernel.
+- do `docker pull mhmmdfdlyas/dockerfile:r` to get **Dependencies** for building custom rom.
+- do `docker pull mhmmdfdlyas/dockerfile:t` to get **Dependencies** for building custom toolchains.
+
+## Fedora
+
+- do `docker pull mhmmdfdlyas/dockerfile:k-fedora` to get **Dependencies** for building Android kernel.
