@@ -3,7 +3,7 @@ name: "kernel (fedora)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 10 * * SAT'
+    - cron: '0 0 * * 6'
 
 jobs:
   kernel-fedora:
