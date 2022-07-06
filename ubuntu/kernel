@@ -28,7 +28,7 @@ RUN apt-get update -qqy && \
         libstdc++6 \
         make \
         openssl \
-        python \
+        python2 \
         rclone \
         ssh \
         tar \
