@@ -1,0 +1,37 @@
+FROM fedora:latest
+LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
+
+ARG LC_ALL=C.UTF-8
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN dnf install -y \
+        binutils \
+        gcc-aarch64-linux-gnu \
+        gcc \
+        git-core \
+        libtool \
+        clang \
+        curl \
+        flex \
+        llvm \
+        lld \
+        binutils \
+        shtool \
+        which \
+        hostname \
+        ccache \
+        bc \
+        bison \
+        gnupg1 \
+        zip \
+        curl \
+        make \
+        openssl \
+        diffutils \
+    && dnf clean all
+
+RUN git config --global user.name "fadlyas07"
+RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+ENV USE_CCACHE=1
+
+CMD ["/bin/bash"]
