@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:35
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 
 ARG LC_ALL=C.UTF-8
@@ -27,6 +27,9 @@ RUN dnf install -y \
         curl \
         make \
         openssl \
+        openssl-devel \
+        python2 \
+        tzdata \
         diffutils \
     && dnf clean all
 
