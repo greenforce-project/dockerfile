@@ -1,12 +1,10 @@
-name: "kernel (fedora)"
-
+name: "Fedora Docker Build"
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * 6'
-
 jobs:
-  kernel-fedora:
+  kernel:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
