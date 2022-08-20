@@ -6,9 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV JAVA_OPTS=" -Xmx7G "
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-ENV TZ=Etc/GMT-7
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 ENV target_repo="https://github.com/akhilnarang/scripts"
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
