@@ -9,6 +9,7 @@ RUN dnf install -y \
         gcc-aarch64-linux-gnu \
         gcc \
         git-core \
+        git-lfs \
         libtool \
         clang \
         curl \
