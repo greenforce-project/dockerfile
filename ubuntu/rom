@@ -81,6 +81,7 @@ RUN apt-get update -qqy && \
         xzdec \
         xz-utils \
         xsltproc \
+        xxd \
         zlib1g-dev \
         zram-config \
         zstd libzstd-dev \

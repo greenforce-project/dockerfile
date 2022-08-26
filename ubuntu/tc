@@ -68,6 +68,7 @@ RUN apt-get update -qqy && \
         subversion \
         software-properties-common \
         llvm \
+        xxd \
         ssh --fix-broken --fix-missing && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy
