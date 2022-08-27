@@ -13,6 +13,7 @@ RUN dnf install -y \
         libtool \
         clang \
         curl \
+        dos2unix \
         flex \
         llvm \
         lld \

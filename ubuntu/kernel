@@ -11,6 +11,7 @@ RUN apt-get update -qqy && \
         curl \
         ccache \
         ca-certificates \
+        dos2unix \
         flex \
         gcc \
         git \

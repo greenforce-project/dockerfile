@@ -23,6 +23,7 @@ RUN apt-get update -qqy && \
         clang \
         cmake \
         expat \
+        dos2unix \
         fastboot \
         flex \
         ffmpeg \
