@@ -1,4 +1,4 @@
-FROM fedora:35
+FROM fedora:latest
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 
 ARG LC_ALL=C.UTF-8
