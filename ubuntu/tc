@@ -71,6 +71,7 @@ RUN apt-get update -qqy && \
         software-properties-common \
         llvm \
         xxd \
+        zstd \
         ssh --fix-broken --fix-missing && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy
