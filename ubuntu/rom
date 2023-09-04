@@ -54,6 +54,7 @@ RUN apt-get update -qqy && \
         lzop \
         make \
         maven \
+        nano \
         nodejs \
         ncftp \
         openssl openssh-server \
@@ -98,6 +99,7 @@ RUN /usr/sbin/locale-gen
 RUN rm -rf /var/lib/apt/lists/* /root/s
 RUN git config --global user.name "fadlyas07"
 RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+RUN git config --global core.editor 'nano'
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]
