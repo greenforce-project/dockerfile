@@ -24,6 +24,7 @@ RUN apt-get update -qqy && \
         libexpat1-dev \
         file \
         flex \
+        gh \
         git \
         git-lfs \
         gcc \
@@ -35,6 +36,7 @@ RUN apt-get update -qqy && \
         gettext \
         gnupg \
 	help2man \
+        hub \
         libcap-dev \
         libtool \
         libelf-dev \

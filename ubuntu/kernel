@@ -14,10 +14,12 @@ RUN apt-get update -qqy && \
         dos2unix \
         flex \
         gcc \
+        gh \
         git \
         glibc-doc \
         git-lfs \
         gnupg \
+        hub \
         jq \
         libxml2 \
         libtinfo5 \

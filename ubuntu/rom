@@ -30,12 +30,14 @@ RUN apt-get update -qqy && \
         gcc gcc-multilib \
         gawk \
         g++ g++-multilib \
+        gh \
         git \
         git-lfs \
         gnupg \
         glibc-doc \
         gperf \
         htop \
+        hub \
         imagemagick \
         jq \
         libxml2 \
