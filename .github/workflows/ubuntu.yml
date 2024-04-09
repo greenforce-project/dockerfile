@@ -18,13 +18,6 @@ jobs:
         repository: mhmmdfdlyas/dockerfile
         tags: t-ubuntu
 
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        status: ${{ job.status }}
-
   kernel:
     runs-on: ubuntu-latest
     steps:
@@ -39,13 +32,6 @@ jobs:
         repository: mhmmdfdlyas/dockerfile
         tags: k-ubuntu
 
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        status: ${{ job.status }}
-
   rom:
     runs-on: ubuntu-latest
     steps:
@@ -59,10 +45,3 @@ jobs:
         dockerfile: ubuntu/rom
         repository: mhmmdfdlyas/dockerfile
         tags: r-ubuntu
-
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        status: ${{ job.status }}

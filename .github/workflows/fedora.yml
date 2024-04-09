@@ -17,10 +17,3 @@ jobs:
         dockerfile: fedora/kernel
         repository: mhmmdfdlyas/dockerfile
         tags: k-fedora
-
-    - uses: yanzay/notify-telegram@v0.1.0
-      if: always()
-      with:
-        chat: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        status: ${{ job.status }}
