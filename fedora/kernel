@@ -1,5 +1,5 @@
 FROM fedora:latest
-LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
+LABEL maintainer "fadlyas07 <mhmmdfdlyas@proton.me>"
 
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
@@ -38,7 +38,7 @@ RUN dnf install -y \
 
 # Set global git configurations
 RUN git config --global user.name "fadlyas07" && \
-    git config --global user.email "mhmmdfdlyas@gmail.com"
+    git config --global user.email "mhmmdfdlyas@proton.me"
 
 ENV USE_CCACHE=1
 
