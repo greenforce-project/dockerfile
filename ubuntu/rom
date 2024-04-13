@@ -2,11 +2,12 @@ FROM ubuntu:latest
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 
 ENV LANG=C.UTF-8
-ENV DEBIAN_FRONTEND noninteractive
-ENV JAVA_OPTS=" -Xmx7G "
+ENV DEBIAN_FRONTEND=noninteractive
+ENV JAVA_OPTS="-Xmx7G"
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
 ENV target_repo="https://github.com/akhilnarang/scripts"
+
+# Install dependencies
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
         adb \
@@ -17,19 +18,22 @@ RUN apt-get update -qqy && \
         bc \
         bison \
         build-essential \
-        curl \
-        ca-certificates ca-certificates-java \
+        ca-certificates \
+        ca-certificates-java \
         ccache \
         clang \
         cmake \
-        expat \
+        curl \
         dos2unix \
+        expat \
         fastboot \
-        flex \
         ffmpeg \
-        gcc gcc-multilib \
+        flex \
+        gcc \
+        gcc-multilib \
+        g++ \
+        g++-multilib \
         gawk \
-        g++ g++-multilib \
         gh \
         git \
         git-lfs \
@@ -40,41 +44,57 @@ RUN apt-get update -qqy && \
         hub \
         imagemagick \
         jq \
-        libxml2 \
-        libtinfo5 \
-        libc6-dev libcap-dev libexpat1-dev libgmp-dev libmpc-dev libmpfr-dev libncurses5-dev  libsdl1.2-dev libssl-dev \
-        libtool \
-        libxml-simple-perl libxml2 libxml2-utils \
-        lsb-core \
-        lzip '^lzma.*' lzop '^liblz4-.*' '^liblzma.*' \
+        lib32ncurses5-dev \
+        lib32z1-dev \
+        libc6-dev \
+        libcap-dev \
+        libexpat1-dev \
+        libgmp-dev \
+        liblz4-dev \
+        liblz4-tool \
+        libmpc-dev \
+        libmpfr-dev \
+        libncurses5 \
+        libncurses5-dev \
         libssl-dev \
         libstdc++6 \
-        lib32z1-dev \
-        libncurses5 lib32ncurses5-dev ncurses-dev \
+        libtinfo5 \
+        libtool \
+        libxml-simple-perl \
+        libxml2 \
+        libxml2-utils \
         locales \
+        lsb-core \
         lzip \
+        lz4 \
         lzop \
         make \
         maven \
         nano \
-        nodejs \
         ncftp \
-        openssl openssh-server \
-        openjdk-8-jdk openjdk-8-jre \
-        python2.7 python-is-python3 python-all-dev \
-        pigz pixz \
-        patch patchelf \
-        p7zip-full p7zip-rar \
+        nodejs \
+        openssh-server \
+        openssl \
+        patch \
+        patchelf \
         pkg-config \
-        pngcrush pngquant \
+        pigz \
+        pixz \
+        pngcrush \
+        pngquant \
+        p7zip-full \
+        p7zip-rar \
+        python2.7 \
+        python-all-dev \
+        python-is-python3 \
         re2c \
         rclone \
         rsync \
+        schedtool \
+        squashfs-tools \
         ssh \
         sshpass \
         sudo \
-        schedtool \
-        squashfs-tools \
         subversion \
         tar \
         texinfo \
@@ -82,26 +102,30 @@ RUN apt-get update -qqy && \
         tzdata \
         wget \
         w3m \
-        xzdec \
-        xz-utils \
         xsltproc \
         xxd \
+        xzdec \
+        xz-utils \
         zlib1g-dev \
         zram-config \
-        zstd libzstd-dev \
-        zip unzip && \
+        zstd \
+        libzstd-dev \
+        zip \
+        unzip && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy && \
     git clone -q $target_repo s && \
     rm -rf s/.git && \
-    bash s/setup/android_build_env.sh
+    bash s/setup/android_build_env.sh && \
+    echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen && \
+    /usr/sbin/locale-gen && \
+    rm -rf /var/lib/apt/lists/* /root/s
 
-RUN echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen
-RUN /usr/sbin/locale-gen
-RUN rm -rf /var/lib/apt/lists/* /root/s
-RUN git config --global user.name "fadlyas07"
-RUN git config --global user.email "mhmmdfdlyas@gmail.com"
-RUN git config --global core.editor 'nano'
+# Set global git configurations
+RUN git config --global user.name "fadlyas07" && \
+    git config --global user.email "mhmmdfdlyas@gmail.com" && \
+    git config --global core.editor 'nano'
+
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]

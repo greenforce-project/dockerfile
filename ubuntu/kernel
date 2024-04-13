@@ -4,28 +4,29 @@ LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Install dependencies
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
         bc \
         bison \
-        curl \
-        ccache \
         ca-certificates \
+        ccache \
+        curl \
         dos2unix \
         flex \
         gcc \
+        glibc-doc \
         gh \
         git \
-        glibc-doc \
         git-lfs \
         gnupg \
         hub \
         jq \
-        libxml2 \
-        libtinfo5 \
         libc6-dev \
         libssl-dev \
         libstdc++6 \
+        libtinfo5 \
+        libxml2 \
         make \
         openssl \
         python2 \
@@ -37,11 +38,13 @@ RUN apt-get update -qqy && \
         xxd \
         zip && \
     apt-get autoremove -qqy && \
-    apt-get autoclean -qqy
+    apt-get autoclean -qqy && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN rm -rf /var/lib/apt/lists/*
-RUN git config --global user.name "fadlyas07"
-RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+# Set global git configurations
+RUN git config --global user.name "fadlyas07" && \
+    git config --global user.email "mhmmdfdlyas@gmail.com"
+
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]

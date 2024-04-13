@@ -4,42 +4,42 @@ LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Install dependencies
 RUN dnf install -y \
         binutils \
-        gcc-aarch64-linux-gnu \
-        arm-linux-gnueabihf-{binutils,gcc,glibc} \
+        bison \
+        bc \
+        ccache \
+        clang \
+        cmake \
+        curl \
+        diffutils \
+        dos2unix \
+        flex \
         gcc \
+        gcc-aarch64-linux-gnu \
         git-core \
         git-lfs \
-        libtool \
-        clang \
-        curl \
-        dos2unix \
-        gh \
+        gnupg1 \
+        hostname \
         hub \
-        flex \
+        libtool \
         llvm \
         lld \
-        binutils \
-        shtool \
-        which \
-        hostname \
-        ccache \
-        bc \
-        bison \
-        gnupg1 \
-        zip \
-        curl \
         make \
         openssl \
         openssl-devel \
         python2 \
+        shtool \
         tzdata \
-        diffutils \
+        which \
+        zip \
     && dnf clean all
 
-RUN git config --global user.name "fadlyas07"
-RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+# Set global git configurations
+RUN git config --global user.name "fadlyas07" && \
+    git config --global user.email "mhmmdfdlyas@gmail.com"
+
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]

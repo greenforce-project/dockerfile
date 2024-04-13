@@ -4,11 +4,11 @@ LABEL maintainer "fadlyas07 <mhmmdfdlyas@gmail.com>"
 ARG LC_ALL=C.UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Install dependencies
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
-        wget \
-        automake \
         autoconf \
+        automake \
         autopoint \
         bc \
         binutils-dev \
@@ -21,70 +21,77 @@ RUN apt-get update -qqy && \
         curl \
         dos2unix \
         expat \
-        libexpat1-dev \
         file \
         flex \
-        gh \
-        git \
-        git-lfs \
         gcc \
         gcc-10 \
         g++ \
         g++-10 \
-        gperf \
         gawk \
+        gperf \
         gettext \
+        gh \
+        git \
+        git-lfs \
         gnupg \
-	help2man \
+        help2man \
         hub \
         libcap-dev \
-        libtool \
         libelf-dev \
-        libssl-dev \
-        libncurses5-dev \
+        libexpat1-dev \
         libgmp-dev \
+        liblz4-dev \
+        liblz4-tool \
+        liblzma-dev \
         libmpc-dev \
         libmpfr-dev \
-        liblzma-dev \
+        libncurses5-dev \
+        libssl-dev \
+        libtool \
         libz-dev \
-        lz4 \
-        liblz4-tool \
-        liblz4-dev \
-        lzma \
+        libzstd-dev \
+        llvm \
         lld \
+        lz4 \
+        lzma \
         make \
+        mercurial \
         ncurses-dev \
         ninja-build \
-        mercurial \
-        python-all-dev \
-        python3-dev \
-        pkg-config \
-        rclone \
-        texinfo \
-        txt2man \
-        tzdata \
-        u-boot-tools \
-        sudo \
-        xz-utils \
-        zlib1g-dev \
         patch \
         patchelf \
-        subversion \
+        pkg-config \
+        python-all-dev \
+        python3-dev \
+        rclone \
         software-properties-common \
-        llvm \
+        ssh \
+        subversion \
+        sudo \
+        texinfo \
+        tzdata \
+        txt2man \
+        u-boot-tools \
+        wget \
         xxd \
+        xz-utils \
+        zlib1g-dev \
         zstd \
-        ssh --fix-broken --fix-missing && \
+        --fix-broken --fix-missing && \
     apt-get autoremove -qqy && \
-    apt-get autoclean -qqy
+    apt-get autoclean -qqy && \
+    rm -rf /var/lib/apt/lists/*
 
+# Add LLVM repository
 RUN ubuntu_codename=$(lsb_release -c | cut -f2) && \
-    wget https://apt.llvm.org/llvm-snapshot.gpg.key && \
-    sudo apt-key add llvm-snapshot.gpg.key && \
-    sudo add-apt-repository "deb http://apt.llvm.org/$ubuntu_codename/ llvm-toolchain-$ubuntu_codename main"
-RUN rm -rf /var/lib/apt/lists/*
-RUN git config --global user.name "fadlyas07"
-RUN git config --global user.email "mhmmdfdlyas@gmail.com"
+    wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
+    add-apt-repository "deb http://apt.llvm.org/$ubuntu_codename/ llvm-toolchain-$ubuntu_codename main"
+
+# Set global git configurations
+RUN git config --global user.name "fadlyas07" && \
+    git config --global user.email "mhmmdfdlyas@gmail.com"
+
+# Set environment variables
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]
