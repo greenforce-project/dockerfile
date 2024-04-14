@@ -25,8 +25,10 @@ RUN apt-get update -qqy && \
         flex \
         gcc \
         gcc-10 \
+        gcc-multilib \
         g++ \
         g++-10 \
+        g++-multilib \
         gawk \
         gperf \
         gettext \
