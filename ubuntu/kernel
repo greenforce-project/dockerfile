@@ -38,7 +38,8 @@ RUN apt-get update -qqy && \
         tzdata \
         wget \
         xxd \
-        zip && \
+        zip \
+        zstd && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy && \
     rm -rf /var/lib/apt/lists/*

@@ -111,6 +111,7 @@ RUN apt-get update -qqy && \
         zstd \
         libzstd-dev \
         zip \
+        zstd \
         unzip && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy && \
