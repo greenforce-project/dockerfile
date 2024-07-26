@@ -29,7 +29,9 @@ RUN apt-get update -qqy && \
         libxml2 \
         make \
         openssl \
-        python2 \
+        python3 \
+        python3-dev \
+        python-is-python3 \
         rclone \
         ssh \
         tar \
