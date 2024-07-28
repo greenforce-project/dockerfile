@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@proton.me>"
 
 ENV LANG=C.UTF-8
