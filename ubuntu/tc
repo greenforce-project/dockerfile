@@ -24,10 +24,8 @@ RUN apt-get update -qqy && \
         file \
         flex \
         gcc \
-        gcc-10 \
         gcc-multilib \
         g++ \
-        g++-10 \
         g++-multilib \
         gawk \
         gperf \
@@ -47,7 +45,7 @@ RUN apt-get update -qqy && \
         liblzma-dev \
         libmpc-dev \
         libmpfr-dev \
-        libncurses5-dev \
+        libncurses-dev \
         libssl-dev \
         libtool \
         libz-dev \
@@ -58,7 +56,6 @@ RUN apt-get update -qqy && \
         lzma \
         make \
         mercurial \
-        ncurses-dev \
         ninja-build \
         patch \
         patchelf \
@@ -79,8 +76,7 @@ RUN apt-get update -qqy && \
         xxd \
         xz-utils \
         zlib1g-dev \
-        zstd \
-        --fix-broken --fix-missing && \
+        zstd && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy && \
     rm -rf /var/lib/apt/lists/*
@@ -88,7 +84,8 @@ RUN apt-get update -qqy && \
 # Add LLVM repository
 RUN ubuntu_codename=$(lsb_release -c | cut -f2) && \
     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    add-apt-repository "deb http://apt.llvm.org/$ubuntu_codename/ llvm-toolchain-$ubuntu_codename main"
+    add-apt-repository "deb http://apt.llvm.org/$ubuntu_codename/ llvm-toolchain-$ubuntu_codename main" && \
+    apt-get update -qqy
 
 # Set global git configurations
 RUN git config --global user.name "fadlyas07" && \

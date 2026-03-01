@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:latest
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@proton.me>"
 
 ARG LC_ALL=C.UTF-8
@@ -25,7 +25,7 @@ RUN apt-get update -qqy && \
         libc6-dev \
         libssl-dev \
         libstdc++6 \
-        libtinfo5 \
+        libtinfo6 \
         libxml2 \
         make \
         openssl \

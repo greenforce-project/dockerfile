@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:latest
 LABEL maintainer "fadlyas07 <mhmmdfdlyas@proton.me>"
 
 ENV LANG=C.UTF-8
@@ -44,8 +44,6 @@ RUN apt-get update -qqy && \
         hub \
         imagemagick \
         jq \
-        lib32ncurses5-dev \
-        lib32z1-dev \
         libc6-dev \
         libcap-dev \
         libexpat1-dev \
@@ -54,17 +52,16 @@ RUN apt-get update -qqy && \
         liblz4-tool \
         libmpc-dev \
         libmpfr-dev \
-        libncurses5 \
-        libncurses5-dev \
+        libncurses-dev \
         libssl-dev \
         libstdc++6 \
-        libtinfo5 \
+        libtinfo6 \
         libtool \
         libxml-simple-perl \
         libxml2 \
         libxml2-utils \
         locales \
-        lsb-core \
+        lsb-release \
         lzip \
         lz4 \
         lzop \
@@ -111,12 +108,10 @@ RUN apt-get update -qqy && \
         zstd \
         libzstd-dev \
         zip \
-        zstd \
         unzip && \
     apt-get autoremove -qqy && \
     apt-get autoclean -qqy && \
     git clone -q $target_repo s && \
-    rm -rf s/.git && \
     bash s/setup/android_build_env.sh && \
     echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen && \
     /usr/sbin/locale-gen && \
