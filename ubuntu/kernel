@@ -8,14 +8,23 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -qqy && \
     apt-get install --no-install-recommends -y \
         bc \
+        binutils-dev \
+        binutils-arm-linux-gnueabi \
+        binutils-aarch64-linux-gnu \
         bison \
         ca-certificates \
         ccache \
+        clang \
         curl \
         dos2unix \
         flex \
         gcc \
-        glibc-doc \
+        gcc \
+        gcc-arm-linux-gnueabi \
+        gcc-aarch64-linux-gnu \
+        g++ \
+        g++-arm-linux-gnueabi \
+        g++-aarch64-linux-gnu \
         gh \
         git \
         git-lfs \
@@ -27,6 +36,8 @@ RUN apt-get update -qqy && \
         libstdc++6 \
         libtinfo6 \
         libxml2 \
+        llvm \
+        lld \
         make \
         openssl \
         python3 \
