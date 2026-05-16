@@ -59,6 +59,13 @@ RUN apt-get update -qqy && \
 RUN git config --global user.name "fadlyas07" && \
     git config --global user.email "mhmmdfdlyas@proton.me"
 
+RUN echo "=== GCC ===" && gcc --version && \
+    echo "=== G++ ===" && g++ --version && \
+    echo "=== ARM GCC ===" && arm-linux-gnueabi-gcc --version && aarch64-linux-gnu-gcc --version && \
+    echo "=== Clang ===" && clang --version && \ 
+    echo "=== Binutils ===" && ld --version && as --version && objdump --version && \
+    echo "=== OpenSSL ===" && openssl version 
+
 ENV USE_CCACHE=1
 
 CMD ["/bin/bash"]
