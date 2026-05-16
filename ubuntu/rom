@@ -58,7 +58,7 @@ RUN apt-get update -qqy && \
         libtinfo6 \
         libtool \
         libxml-simple-perl \
-        libxml2 \
+        libxml2-dev \
         libxml2-utils \
         locales \
         lsb-release \

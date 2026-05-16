@@ -35,7 +35,7 @@ RUN apt-get update -qqy && \
         libssl-dev \
         libstdc++6 \
         libtinfo6 \
-        libxml2 \
+        libxml2-dev \
         llvm \
         lld \
         make \

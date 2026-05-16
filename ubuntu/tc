@@ -50,6 +50,7 @@ RUN apt-get update -qqy && \
         libtool \
         libz-dev \
         libzstd-dev \
+        libxml2-dev \
         llvm \
         lld \
         lz4 \
