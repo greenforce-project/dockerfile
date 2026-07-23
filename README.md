@@ -1,18 +1,30 @@
 # Android Build Docker Images
 
-Reproducible Ubuntu-based Docker images for Android kernel, custom ROM, and compiler toolchain development.
+Reproducible Ubuntu and Debian Docker images for Android kernel,
+AOSP/custom ROM, and compiler toolchain development.
 
-## Available images
+## Supported images
 
-| Purpose | Docker Hub tag | Base image | Dockerfile |
-|---|---|---|---|
-| Android/Linux kernel builds | `k-ubuntu` | Ubuntu 24.04 LTS | `ubuntu/kernel/Dockerfile` |
-| AOSP and custom ROM builds | `r-ubuntu` | Ubuntu 22.04 LTS | `ubuntu/rom/Dockerfile` |
-| GCC, LLVM, and custom toolchains | `t-ubuntu` | Ubuntu 24.04 LTS | `ubuntu/toolchain/Dockerfile` |
+The Docker Hub repository is:
 
-The public image name remains `mhmmdfdlyas/dockerfile`, so existing pull commands remain compatible.
+```text
+mhmmdfdlyas/dockerfile
+```
 
-## Pull an image
+| Distribution | Purpose | Stable tag | Versioned tag | Base |
+|---|---|---|---|---|
+| Ubuntu | Android/Linux kernel | `k-ubuntu` | `k-ubuntu24.04` | Ubuntu 24.04 |
+| Ubuntu | AOSP/custom ROM | `r-ubuntu` | `r-ubuntu22.04` | Ubuntu 22.04 |
+| Ubuntu | GCC/LLVM toolchain | `t-ubuntu` | `t-ubuntu24.04` | Ubuntu 24.04 |
+| Debian | Android/Linux kernel | `k-debian` | `k-debian12` | Debian 12 |
+| Debian | AOSP/custom ROM | `r-debian` | `r-debian12` | Debian 12 |
+| Debian | GCC/LLVM toolchain | `t-debian` | `t-debian12` | Debian 12 |
+
+Existing Ubuntu tags remain supported.
+
+## Pull images
+
+### Ubuntu
 
 ```bash
 docker pull mhmmdfdlyas/dockerfile:k-ubuntu
@@ -20,90 +32,147 @@ docker pull mhmmdfdlyas/dockerfile:r-ubuntu
 docker pull mhmmdfdlyas/dockerfile:t-ubuntu
 ```
 
+### Debian
+
+```bash
+docker pull mhmmdfdlyas/dockerfile:k-debian
+docker pull mhmmdfdlyas/dockerfile:r-debian
+docker pull mhmmdfdlyas/dockerfile:t-debian
+```
+
 ## Run an image
 
-Mount the source tree into `/workspace`. The container runs as the unprivileged `builder` user by default.
+Mount the source tree into `/workspace`:
 
 ```bash
 docker run --rm -it \
   -v "$PWD:/workspace" \
   -v android-ccache:/home/builder/.cache/ccache \
-  mhmmdfdlyas/dockerfile:r-ubuntu
+  mhmmdfdlyas/dockerfile:r-debian
 ```
 
-To preserve host file ownership, build locally with matching UID and GID values:
-
-```bash
-docker build \
-  -f ubuntu/rom/Dockerfile \
-  --build-arg USER_UID="$(id -u)" \
-  --build-arg USER_GID="$(id -g)" \
-  -t android-rom-env .
-```
+Containers run as the unprivileged `builder` user by default.
 
 ## Build locally
 
-```bash
-make build-kernel
-make build-rom
-make build-toolchain
-```
-
-Build all images and run smoke checks:
+Build every image:
 
 ```bash
 make build
+```
+
+Build only Ubuntu:
+
+```bash
+make build-ubuntu
+```
+
+Build only Debian:
+
+```bash
+make build-debian
+```
+
+Build individual Debian images:
+
+```bash
+make build-debian-kernel
+make build-debian-rom
+make build-debian-toolchain
+```
+
+## Build arguments
+
+All images support:
+
+- `USER_UID`
+- `USER_GID`
+- `USERNAME`
+
+Kernel and toolchain images support:
+
+- `INSTALL_EXTRA_TOOLS=true`
+
+ROM images support:
+
+- `INSTALL_EXTRA_TOOLS=true`
+
+The Ubuntu ROM image supports:
+
+- `INSTALL_LEGACY_JDKS=true`
+
+The Debian 12 ROM image uses OpenJDK 17. Use the Ubuntu ROM image
+when an older Android branch requires bundled Java 8 or Java 11.
+
+## Validation
+
+Run repository checks:
+
+```bash
+make lint
+```
+
+After building all images, run smoke tests:
+
+```bash
 make verify
-```
-
-## Build options
-
-All images support `USER_UID` and `USER_GID`. Kernel and toolchain images support `INSTALL_EXTRA_TOOLS=true`. The ROM image also supports:
-
-- `INSTALL_LEGACY_JDKS=false` to omit Java 8 and Java 11.
-- `INSTALL_EXTRA_TOOLS=true` to add optional interactive utilities.
-- `UBUNTU_VERSION=<version>` to override the tested base version for local experiments.
-
-Example:
-
-```bash
-docker build \
-  -f ubuntu/rom/Dockerfile \
-  --build-arg INSTALL_LEGACY_JDKS=false \
-  --build-arg INSTALL_EXTRA_TOOLS=true \
-  -t android-rom-env:modern .
-```
-
-## Java versions in the ROM image
-
-Java 17 is the default. Java 8 and Java 11 are installed by default for compatibility with older Android branches. Select another version interactively when required:
-
-```bash
-sudo update-alternatives --config java
-sudo update-alternatives --config javac
 ```
 
 ## Continuous integration
 
-GitHub Actions validates pull requests and publishes all three tags on changes to `main`, manual runs, and the weekly schedule. The workflow uses Buildx caching, SBOM generation, and build provenance.
+GitHub Actions builds six images:
 
-Configure these repository secrets before publishing:
+1. Ubuntu Android kernel
+2. Ubuntu Android ROM
+3. Ubuntu toolchain
+4. Debian Android kernel
+5. Debian Android ROM
+6. Debian toolchain
 
-- `DOCKER_USERNAME`: Docker Hub username.
-- `DOCKER_PASSWORD`: Docker Hub access token. Do not use the account password.
+The workflow publishes stable and versioned tags. It also uses:
 
-The scheduled build runs every Saturday at 00:00 Asia/Jakarta.
+- Docker Buildx
+- GitHub Actions build cache
+- SBOM generation
+- Build provenance
 
-## Design decisions
+Required GitHub Actions secrets:
 
-- Versioned Ubuntu LTS bases replace `ubuntu:latest`.
-- Builds run as a non-root user.
-- Package installation and APT cleanup occur in the same layer.
-- Personal Git identity is not embedded in the images.
-- The ROM image no longer clones and executes an unpinned third-party setup script.
-- The deprecated `apt-key` workflow and unused external LLVM repository are removed.
-- Legacy Docker GitHub Action v1 inputs are replaced by current Buildx, login, and build-push actions.
+- `DOCKER_USERNAME`
+- `DOCKER_PASSWORD`
+
+Use a Docker Hub access token for `DOCKER_PASSWORD`.
+
+## Security principles
+
+- Base distribution versions are explicit.
+- Containers run without root privileges by default.
+- Personal Git identity is not embedded in images.
+- Remote shell installers are not used.
+- Package lists are removed after installation.
+- UID and GID conflicts are handled during image creation.
+
+## Repository structure
+
+```text
+.
+├── ubuntu/
+│   ├── kernel/Dockerfile
+│   ├── rom/Dockerfile
+│   └── toolchain/Dockerfile
+├── debian/
+│   ├── kernel/Dockerfile
+│   ├── rom/Dockerfile
+│   └── toolchain/Dockerfile
+├── scripts/
+│   ├── create-builder-user.sh
+│   ├── lint-repository.sh
+│   └── verify.sh
+├── .github/workflows/build.yml
+└── Makefile
+```
 
 ## License
 
-No license has been declared for this repository. Add an explicit license before accepting external redistribution or contributions.
+No explicit license has been declared. Add a license before accepting
+external redistribution or contributions.

@@ -6,17 +6,23 @@ on:
     branches: [main]
     paths:
       - "ubuntu/**"
+      - "debian/**"
+      - "scripts/**"
       - ".github/workflows/build.yml"
       - ".dockerignore"
       - ".gitignore"
+      - "Makefile"
   pull_request:
     paths:
       - "ubuntu/**"
+      - "debian/**"
+      - "scripts/**"
       - ".github/workflows/build.yml"
       - ".dockerignore"
       - ".gitignore"
+      - "Makefile"
   schedule:
-    # Saturday 00:00 Asia/Jakarta (Friday 17:00 UTC)
+    # Saturday 00:00 Asia/Jakarta, Friday 17:00 UTC.
     - cron: "0 17 * * 5"
 
 permissions:
@@ -30,23 +36,63 @@ env:
   IMAGE_NAME: mhmmdfdlyas/dockerfile
 
 jobs:
+  validate:
+    name: Validate repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Run repository checks
+        run: ./scripts/lint-repository.sh
+
   build:
     name: ${{ matrix.name }}
+    needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 180
+
     strategy:
       fail-fast: false
       matrix:
         include:
-          - name: Android kernel
+          - name: Ubuntu Android kernel
             file: ubuntu/kernel/Dockerfile
             tag: k-ubuntu
-          - name: Android ROM
+            version_tag: k-ubuntu24.04
+            cache_scope: k-ubuntu
+
+          - name: Ubuntu Android ROM
             file: ubuntu/rom/Dockerfile
             tag: r-ubuntu
-          - name: Toolchain
+            version_tag: r-ubuntu22.04
+            cache_scope: r-ubuntu
+
+          - name: Ubuntu Toolchain
             file: ubuntu/toolchain/Dockerfile
             tag: t-ubuntu
+            version_tag: t-ubuntu24.04
+            cache_scope: t-ubuntu
+
+          - name: Debian Android kernel
+            file: debian/kernel/Dockerfile
+            tag: k-debian
+            version_tag: k-debian12
+            cache_scope: k-debian12
+
+          - name: Debian Android ROM
+            file: debian/rom/Dockerfile
+            tag: r-debian
+            version_tag: r-debian12
+            cache_scope: r-debian12
+
+          - name: Debian Toolchain
+            file: debian/toolchain/Dockerfile
+            tag: t-debian
+            version_tag: t-debian12
+            cache_scope: t-debian12
 
     steps:
       - name: Check out repository
@@ -69,8 +115,10 @@ jobs:
           file: ${{ matrix.file }}
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.IMAGE_NAME }}:${{ matrix.tag }}
-          cache-from: type=gha,scope=${{ matrix.tag }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.tag }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ matrix.tag }}
+            ${{ env.IMAGE_NAME }}:${{ matrix.version_tag }}
+          cache-from: type=gha,scope=${{ matrix.cache_scope }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.cache_scope }}
           provenance: mode=max
           sbom: true
