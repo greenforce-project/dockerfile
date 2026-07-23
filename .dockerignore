@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+*.md
+LICENSE
+SECURITY.md
+CONTRIBUTING.md
+Makefile
+scripts

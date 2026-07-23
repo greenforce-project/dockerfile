@@ -1,49 +1,76 @@
-name: Docker Build
-env:
-      TZ: Asia/Jakarta
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+name: Build and publish images
+
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "ubuntu/**"
+      - ".github/workflows/build.yml"
+      - ".dockerignore"
+      - ".gitignore"
+  pull_request:
+    paths:
+      - "ubuntu/**"
+      - ".github/workflows/build.yml"
+      - ".dockerignore"
+      - ".gitignore"
   schedule:
-    - cron: '0 0 * * 6'
+    # Saturday 00:00 Asia/Jakarta (Friday 17:00 UTC)
+    - cron: "0 17 * * 5"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docker-images-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: mhmmdfdlyas/dockerfile
+
 jobs:
-
-  ubuntu_toolchain:
+  build:
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build ubuntu toolchain packages
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ubuntu/tc
-        repository: mhmmdfdlyas/dockerfile
-        tags: t-ubuntu
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Android kernel
+            file: ubuntu/kernel/Dockerfile
+            tag: k-ubuntu
+          - name: Android ROM
+            file: ubuntu/rom/Dockerfile
+            tag: r-ubuntu
+          - name: Toolchain
+            file: ubuntu/toolchain/Dockerfile
+            tag: t-ubuntu
 
-  ubuntu_kernel:
-    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Build ubuntu kernel packages
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ubuntu/kernel
-        repository: mhmmdfdlyas/dockerfile
-        tags: k-ubuntu
+      - name: Check out repository
+        uses: actions/checkout@v6
 
-  ubuntu_rom:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
 
-    - name: Build ubuntu rom packages
-      uses: docker/build-push-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ubuntu/rom
-        repository: mhmmdfdlyas/dockerfile
-        tags: r-ubuntu
+      - name: Log in to Docker Hub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and optionally publish
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ${{ matrix.file }}
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.IMAGE_NAME }}:${{ matrix.tag }}
+          cache-from: type=gha,scope=${{ matrix.tag }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.tag }}
+          provenance: mode=max
+          sbom: true
