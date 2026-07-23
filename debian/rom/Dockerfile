@@ -31,13 +31,20 @@ ENV LANG=en_US.UTF-8 \
 COPY --chmod=0755 scripts/create-builder-user.sh \
     /usr/local/bin/create-builder-user
 
-RUN if [[ "${INSTALL_LEGACY_JDKS}" == "true" ]]; then \
+RUN sources_file="/etc/apt/sources.list.d/debian.sources"; \
+    test -f "${sources_file}"; \
+    if ! grep -Eq '^Components:.*[[:space:]]contrib([[:space:]]|$)' "${sources_file}"; then \
+        sed -i '/^Components:/ s/$/ contrib/' "${sources_file}"; \
+    fi; \
+    grep -Eq '^Components:.*[[:space:]]contrib([[:space:]]|$)' "${sources_file}"; \
+    if [[ "${INSTALL_LEGACY_JDKS}" == "true" ]]; then \
         printf '%s\n' \
             'Debian 12 supports OpenJDK 17 in this image.' \
             'Use the Ubuntu ROM image for bundled Java 8 and Java 11.' >&2; \
         exit 2; \
     fi && \
     apt-get update && \
+    apt-cache show repo >/dev/null && \
     apt-get install -y --no-install-recommends \
         adb \
         aria2 \
