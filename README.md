@@ -51,7 +51,17 @@ docker run --rm -it \
   mhmmdfdlyas/dockerfile:r-debian
 ```
 
-Containers run as the unprivileged `builder` user by default.
+Containers run as `root` by default for GitHub Actions job-container compatibility. The unprivileged `builder` account remains available for explicit local use:
+
+```bash
+docker run --rm -it \
+  --user builder \
+  --env HOME=/home/builder \
+  --env CCACHE_DIR=/home/builder/.cache/ccache \
+  -v "$PWD:/workspace" \
+  -v android-ccache:/home/builder/.cache/ccache \
+  mhmmdfdlyas/dockerfile:k-ubuntu
+```
 
 ## Build locally
 
@@ -146,7 +156,8 @@ Use a Docker Hub access token for `DOCKER_PASSWORD`.
 ## Security principles
 
 - Base distribution versions are explicit.
-- Containers run without root privileges by default.
+- Images run as root by default for GitHub Actions job-container compatibility.
+- The unprivileged `builder` account remains available through `docker run --user builder`.
 - Personal Git identity is not embedded in images.
 - Remote shell installers are not used.
 - Package lists are removed after installation.

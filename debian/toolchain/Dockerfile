@@ -119,6 +119,17 @@ RUN test "$(id -u)" = "${USER_UID}" && \
     command -v ninja && \
     command -v ccache
 
+# GitHub Actions job-container compatibility.
+#
+# GitHub Actions mounts workspace and runner command directories
+# when the job container starts. Actions must be able to write
+# to those directories.
+#
+# Keep builder available for explicit local use, but use root
+# as the default runtime user.
+USER root
+ENV HOME=/root
+
 VOLUME ["/workspace", "/home/builder/.cache/ccache"]
 
 CMD ["/bin/bash"]
