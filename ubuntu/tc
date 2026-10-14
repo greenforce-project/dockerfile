@@ -19,6 +19,7 @@ RUN apt-get update -qqy && \
         clang \
         cmake \
         curl \
+        cpio \
         dos2unix \
         expat \
         file \
@@ -75,6 +76,7 @@ RUN apt-get update -qqy && \
         u-boot-tools \
         wget \
         xxd \
+        xz \
         xz-utils \
         zlib1g-dev \
         zstd && \

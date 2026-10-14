@@ -24,6 +24,7 @@ RUN apt-get update -qqy && \
         clang \
         cmake \
         curl \
+        cpio \
         dos2unix \
         expat \
         fastboot \
@@ -100,6 +101,7 @@ RUN apt-get update -qqy && \
         w3m \
         xsltproc \
         xxd \
+        xz \
         xzdec \
         xz-utils \
         zlib1g-dev \

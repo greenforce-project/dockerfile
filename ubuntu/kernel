@@ -16,6 +16,7 @@ RUN apt-get update -qqy && \
         ccache \
         clang \
         curl \
+        cpio \
         dos2unix \
         flex \
         gcc \
@@ -49,6 +50,7 @@ RUN apt-get update -qqy && \
         tzdata \
         wget \
         xxd \
+        xz \
         zip \
         zstd && \
     apt-get autoremove -qqy && \
